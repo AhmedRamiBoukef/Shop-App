@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'details/datails.dart';
 import 'home/homepage.dart';
 
 void main() {
@@ -26,7 +27,10 @@ class MyApp extends StatelessWidget {
           bodyText2: TextStyle(color: Colors.black54),
         ),
       ),
-      home: HomePage(),
+      routes: {
+        "/": (context) => HomePage(),
+        DetailScreen.screenRoute: (context) => DetailScreen(),
+      },
     );
   }
 }
