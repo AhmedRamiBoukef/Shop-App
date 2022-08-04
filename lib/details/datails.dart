@@ -1,13 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/details/widgets/colorpoint.dart';
 
-class DetailScreen extends StatelessWidget {
+class DetailScreen extends StatefulWidget {
   static const String screenRoute = "/DetailScreen";
   const DetailScreen({Key? key}) : super(key: key);
 
   @override
+  State<DetailScreen> createState() => _DetailScreenState();
+}
+
+class _DetailScreenState extends State<DetailScreen> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  late final String title;
+  late final String image;
+  late final int price;
+  late final Color bgColor;
+
+  @override
+  void didChangeDependencies() {
+    final arg =
+        ModalRoute.of(context)!.settings.arguments as Map<String, Object>;
+    title = arg['title'] as String;
+    image = arg['image'] as String;
+    price = arg['price'] as int;
+    bgColor = arg['bgColor'] as Color;
+
+    super.didChangeDependencies();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: bgColor,
       floatingActionButton: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 20),
         child: IconButton(
@@ -25,10 +53,11 @@ class DetailScreen extends StatelessWidget {
           Expanded(
             flex: 4,
             child: Container(
+              color: bgColor,
               width: double.infinity,
               child: Image.asset(
                 height: 132,
-                "assets/images/product_0.png",
+                image,
               ),
             ),
           ),
@@ -37,7 +66,7 @@ class DetailScreen extends StatelessWidget {
             child: Container(
               width: double.infinity,
               decoration: BoxDecoration(
-                color: Colors.blue,
+                color: Colors.white,
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(32),
                   topRight: Radius.circular(32),
@@ -52,13 +81,13 @@ class DetailScreen extends StatelessWidget {
                       children: [
                         Expanded(
                           child: Text(
-                            "Long Sleeve Shirts",
+                            title,
                             style: Theme.of(context).textTheme.headline6,
                           ),
                         ),
                         const SizedBox(width: 4),
                         Text(
-                          "\$" + 165.toString(),
+                          "\$" + price.toString(),
                           style: Theme.of(context).textTheme.headline6,
                         ),
                       ],

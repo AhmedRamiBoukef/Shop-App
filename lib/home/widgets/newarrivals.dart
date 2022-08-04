@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app/details/datails.dart';
 
 import '../../models/Product.dart';
 import 'productcard.dart';
@@ -49,7 +50,17 @@ class NewArrivals extends StatelessWidget {
                   image: demo_product[index].image,
                   price: demo_product[index].price,
                   bgColor: demo_product[index].bgColor,
-                  press: () {},
+                  press: () {
+                    Navigator.of(context).pushNamed(
+                      DetailScreen.screenRoute,
+                      arguments: {
+                        'title': demo_product[index].title,
+                        'image': demo_product[index].image,
+                        'price': demo_product[index].price,
+                        'bgColor': demo_product[index].bgColor,
+                      },
+                    );
+                  },
                 ),
               ),
             ),
