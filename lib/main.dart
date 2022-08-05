@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app/cart/cart.dart';
 import 'details/datails.dart';
 import 'home/homepage.dart';
 
@@ -30,6 +31,7 @@ class MyApp extends StatelessWidget {
       routes: {
         "/": (context) => HomePage(),
         DetailScreen.screenRoute: (context) => DetailScreen(),
+        CartScreen.screenRoute: (context) => CartScreen(),
       },
     );
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app/data/data.dart';
 import 'package:shop_app/details/widgets/colorpoint.dart';
 
 class DetailScreen extends StatefulWidget {
@@ -19,6 +20,7 @@ class _DetailScreenState extends State<DetailScreen> {
   late final String image;
   late final int price;
   late final Color bgColor;
+  late final int index;
 
   @override
   void didChangeDependencies() {
@@ -28,7 +30,7 @@ class _DetailScreenState extends State<DetailScreen> {
     image = arg['image'] as String;
     price = arg['price'] as int;
     bgColor = arg['bgColor'] as Color;
-
+    index = arg['index'] as int;
     super.didChangeDependencies();
   }
 
@@ -55,9 +57,12 @@ class _DetailScreenState extends State<DetailScreen> {
             child: Container(
               color: bgColor,
               width: double.infinity,
-              child: Image.asset(
-                height: 132,
-                image,
+              child: Hero(
+                tag: title,
+                child: Image.asset(
+                  height: 132,
+                  image,
+                ),
               ),
             ),
           ),
@@ -128,7 +133,9 @@ class _DetailScreenState extends State<DetailScreen> {
                         width: 200,
                         height: 48,
                         child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            mycart.add(index);
+                          },
                           style: ElevatedButton.styleFrom(
                               primary: Colors.orange,
                               shape: const StadiumBorder()),

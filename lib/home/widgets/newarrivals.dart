@@ -58,6 +58,7 @@ class NewArrivals extends StatelessWidget {
                         'image': demo_product[index].image,
                         'price': demo_product[index].price,
                         'bgColor': demo_product[index].bgColor,
+                        'index': index,
                       },
                     );
                   },

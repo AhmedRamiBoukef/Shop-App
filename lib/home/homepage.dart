@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:shop_app/cart/cart.dart';
 
 import 'widgets/categories.dart';
 import 'widgets/newarrivals.dart';
@@ -22,6 +23,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: HomeDrawer(),
       extendBody: true,
       bottomNavigationBar: SnakeNavigationBar.color(
         behaviour: SnakeBarBehaviour.floating,
@@ -43,7 +45,18 @@ class _HomePageState extends State<HomePage> {
         showSelectedLabels: false,
 
         currentIndex: _selectedItemPosition,
-        onTap: (index) => setState(() => _selectedItemPosition = index),
+        onTap: (index) => setState(() {
+          _selectedItemPosition = index;
+          switch (index) {
+            case 0:
+              Navigator.of(context).pushReplacementNamed('/');
+              break;
+            case 1:
+              Navigator.of(context).pushNamed(CartScreen.screenRoute);
+              break;
+            default:
+          }
+        }),
         items: [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'home'),
           BottomNavigationBarItem(
@@ -105,6 +118,80 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class HomeDrawer extends StatelessWidget {
+  const HomeDrawer({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+      child: Column(
+        children: [
+          SizedBox(height: 30),
+          DrawerElem(
+            icon: Icons.favorite,
+            title: "My favourites",
+          ),
+          DrawerElem(
+            icon: Icons.wallet_outlined,
+            title: "Wallets",
+          ),
+          DrawerElem(
+            icon: Icons.local_mall,
+            title: "My orders",
+          ),
+          DrawerElem(
+            icon: Icons.feed_sharp,
+            title: "About us",
+          ),
+          DrawerElem(
+            icon: Icons.lock,
+            title: "Privacy policy",
+          ),
+          DrawerElem(
+            icon: Icons.settings,
+            title: "Settings",
+          ),
+          SizedBox(height: 80),
+          DrawerElem(
+            icon: Icons.logout,
+            title: "Logout",
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class DrawerElem extends StatelessWidget {
+  final String title;
+  final IconData icon;
+  const DrawerElem({
+    required this.icon,
+    required this.title,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      leading: Container(
+        height: 25,
+        width: 25,
+        decoration: BoxDecoration(
+          color: Color.fromARGB(55, 255, 153, 0),
+          borderRadius: BorderRadius.all(Radius.circular(6)),
+        ),
+        child: Icon(
+          icon,
+          size: 20,
+          color: Colors.orange[700],
+        ),
+      ),
+      title: Text(title),
     );
   }
 }
